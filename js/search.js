@@ -34,10 +34,11 @@ var searchFunc = function(path, search_id, content_id) {
             }).get();
 
             var $input = document.getElementById(search_id);
+      if (!$input) return;
             var $resultContent = document.getElementById(content_id);
 
             $input.addEventListener('input', function(){
-                var str='<ul class=\"search-result-list\">';                
+                var str='<ul class=\"search-result-list\">';
                 var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
                 $resultContent.innerHTML = "";
                 if (this.value.trim().length <= 0) {
@@ -46,7 +47,7 @@ var searchFunc = function(path, search_id, content_id) {
                 // perform local searching
                 datas.forEach(function(data) {
                     var isMatch = true;
-                    var content_index = [];                                                       
+                    var content_index = [];
                     if (!data.title || data.title.trim() === '') {
                         data.title = "Untitled";
                     }
@@ -105,7 +106,7 @@ var searchFunc = function(path, search_id, content_id) {
                                 var regS = new RegExp(keyword, "gi");
                                 match_content = match_content.replace(regS, "<em class=\"search-keyword\">"+keyword+"</em>");
                             });
-                            
+
                             str += "<p class=\"search-result\">" + match_content +"...</p>"
                         }
                         str += "</li>";
